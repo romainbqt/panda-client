@@ -1,4 +1,5 @@
 import re
+import sys
 import os
 import json
 import uuid
@@ -151,6 +152,30 @@ def commands_get_status_output(com):
 
 def commands_get_output(com):
     return commands_get_status_output(com)[1]
+
+def commands_fail_on_execution(com,verbose,errorCodeOnFailure):
+    # execute command and get status code and message printed 
+    status,data = commands_get_status_output(com)
+    
+    # fail on error 
+    if status != 0:
+        # print error message before failing
+        print(data)
+        if errorCodeOnFailure == "sameAsStatusCode":
+            sys.exit(status)
+
+        elif type(errorCodeOnFailure) == int:
+            # use error code provided to the function 
+            sys.exit(errorCodeOnFailure)
+        else: 
+            # default exit code = 1 otherwise
+            sys.exit(1)
+    
+    # print command output message if verbose
+    if verbose: 
+        print(data)
+    # otherwise the command got executed correctly 
+    return status,data
 
 
 # decorator to run with the original environment
