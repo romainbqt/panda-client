@@ -154,7 +154,6 @@ def commands_get_output(com):
     return commands_get_status_output(com)[1]
 
 def commands_fail(com,verbose,errorStatusOnFailure,logger=None,logMessage=""):
-    
     # check that the logger and log message have been provided 
     if logger is not None and len(logMessage):
         logger.debug(logMessage)
@@ -180,7 +179,7 @@ def commands_fail(com,verbose,errorStatusOnFailure,logger=None,logMessage=""):
     # print command output message if verbose
     if verbose:
         print(data)
-    # otherwise the command got executed correctly 
+
     return status,data
 
 
