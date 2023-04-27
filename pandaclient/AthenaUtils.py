@@ -1080,6 +1080,7 @@ def archiveWithCpack(withSource,tmpDir,verbose):
     else:
         use_cpack = False
         tmpLog.info('skip cpack since {0} is missing in the build directory'.format(check_file))
+    
     archiveName += '.tar'
     archiveFullName += '.tar'
     os.chdir(tmpDir)
