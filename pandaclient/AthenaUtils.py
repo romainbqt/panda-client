@@ -1093,7 +1093,7 @@ def archiveWithCpack(withSource,tmpDir,verbose):
     commands_failOnNonZeroExistStatus(
         comStr, EC_Archive, 
         verboseCmd=verbose, verboseOutputCmd=verbose,
-        logger=tmpLog, errorLogMsg='tar creation failed')
+        logger=tmpLog, errorLogMsg='tarball creation failed')
 
     os.chdir(_curdir)
     return archiveName, archiveFullName
