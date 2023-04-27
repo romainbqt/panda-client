@@ -177,7 +177,7 @@ def commands_failOnNonZeroExistStatus(com,errorStatusOnFailure,verbose,logger=No
             sys.exit(1)
     
     # print command output message if verbose
-    if verbose:
+    if verbose and data != "":
         print(data)
 
     return status,data
