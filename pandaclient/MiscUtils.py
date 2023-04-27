@@ -156,11 +156,11 @@ def commands_get_output(com):
 def commands_failOnNonZeroExistStatus(
     com, errorStatusOnFailure,
     verboseCmd=False,verboseOutput=False,
-    logger=None,logMessage="",errorLogMessage=""):
+    logger=None,logMsg="",errorLogMsg=""):
     
     # add log message if logger and log message have been provided 
-    if logger is not None and len(logMessage):
-        logger.debug(logMessage)
+    if logger is not None and len(logMsg):
+        logger.debug(logMsg)
     
     # print command 
     if verboseCmd: 
@@ -174,8 +174,8 @@ def commands_failOnNonZeroExistStatus(
         # print error message before failing
         print(data)
         # report error message if logger and log message have been provided 
-        if logger is not None and len(errorLogMessage):
-            logger.error(errorLogMessage)
+        if logger is not None and len(errorLogMsg):
+            logger.error(errorLogMsg)
         
         if type(errorStatusOnFailure) == int:
             # use error status provided to the function
