@@ -3,7 +3,7 @@ import re
 import sys
 
 from . import MiscUtils
-from .MiscUtils import commands_get_output, commands_get_status_output_with_env, commands_get_output_with_env
+from .MiscUtils import commands_get_output, commands_get_status_output_with_env, commands_get_output_with_env, commands_failOnNonZeroExistStatus
 from . import PLogger
 from . import Client
 
@@ -1072,20 +1072,11 @@ def archiveWithCpack(withSource,tmpDir,verbose):
         comStr += '-D CPACK_PACKAGE_VERSION_MINOR="" -D CPACK_PACKAGE_VERSION_PATCH="" '
         comStr += '-D CPACK_PACKAGE_DESCRIPTION="" '
         
-        
-        if verbose:
-            tmpLog.debug(comStr)
-            comStr += '-V '
-        
-        
-        commands_failOnNonZeroExistStatus(comStr,EC_Config,verbose)
-        tmpStat, tmpOut = commands_get_status_output_with_env(comStr)
-        if tmpStat != 0:
-            print(tmpOut)
-            tmpLog.error('cpack failed')
-            sys.exit(EC_Config)
-        if verbose:
-            print(tmpOut)
+        commands_failOnNonZeroExistStatus(
+          comStr, EC_Config, 
+          verboseCmd=verbose, verboseOutputCmd=verbose,
+          logger=tmpLog, errorLogMsg='cpack failed')
+            
     else:
         use_cpack = False
         tmpLog.info('skip cpack since {0} is missing in the build directory'.format(check_file))
