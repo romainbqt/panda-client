@@ -1071,9 +1071,14 @@ def archiveWithCpack(withSource,tmpDir,verbose):
         comStr += '-D CPACK_PACKAGE_NAME="" -D CPACK_PACKAGE_VERSION="" -D CPACK_PACKAGE_VERSION_MAJOR="" '
         comStr += '-D CPACK_PACKAGE_VERSION_MINOR="" -D CPACK_PACKAGE_VERSION_PATCH="" '
         comStr += '-D CPACK_PACKAGE_DESCRIPTION="" '
+        
+        
         if verbose:
             tmpLog.debug(comStr)
             comStr += '-V '
+        
+        
+        commands_failOnNonZeroExistStatus(comStr,EC_Config,verbose)
         tmpStat, tmpOut = commands_get_status_output_with_env(comStr)
         if tmpStat != 0:
             print(tmpOut)

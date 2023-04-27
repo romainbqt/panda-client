@@ -153,10 +153,18 @@ def commands_get_status_output(com):
 def commands_get_output(com):
     return commands_get_status_output(com)[1]
 
-def commands_failOnNonZeroExistStatus(com,errorStatusOnFailure,verbose,logger=None,logMessage=""):
-    # check that the logger and log message have been provided 
+def commands_failOnNonZeroExistStatus(
+    com, errorStatusOnFailure,
+    verboseCmd=False,verboseOutput=False,
+    logger=None,logMessage="",errorLogMessage=""):
+    
+    # add log message if logger and log message have been provided 
     if logger is not None and len(logMessage):
         logger.debug(logMessage)
+    
+    # print command 
+    if verboseCmd: 
+        print(com)
     
     # execute command, get status code and message printed by the command 
     status,data = commands_get_status_output(com)
@@ -165,6 +173,10 @@ def commands_failOnNonZeroExistStatus(com,errorStatusOnFailure,verbose,logger=No
     if status != 0:
         # print error message before failing
         print(data)
+        # report error message if logger and log message have been provided 
+        if logger is not None and len(errorLogMessage):
+            logger.error(errorLogMessage)
+        
         if type(errorStatusOnFailure) == int:
             # use error status provided to the function
             sys.exit(errorStatusOnFailure)
@@ -177,7 +189,7 @@ def commands_failOnNonZeroExistStatus(com,errorStatusOnFailure,verbose,logger=No
             sys.exit(1)
     
     # print command output message if verbose
-    if verbose and data != "":
+    if verboseOutput and data != "":
         print(data)
 
     return status,data
