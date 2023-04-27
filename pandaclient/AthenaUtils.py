@@ -1084,11 +1084,16 @@ def archiveWithCpack(withSource,tmpDir,verbose):
     archiveFullName += '.tar'
     os.chdir(tmpDir)
     if use_cpack:
-        comStr = 'tar xfz {0}.gz; tar cf {0} usr > /dev/null 2>&1; rm -rf usr _CPack_Packages {0}.gz'.format(
+        comStr = 'tar xfz {0}.gz && tar cf {0} usr > /dev/null 2>&1 && rm -rf usr _CPack_Packages {0}.gz'.format(
             archiveName)
     else:
         comStr = 'tar cf {0} -T /dev/null > /dev/null 2>&1'.format(archiveName)
-    commands_get_output(comStr)
+
+    commands_failOnNonZeroExistStatus(
+        comStr, EC_Archive, 
+        verboseCmd=verbose, verboseOutputCmd=verbose,
+        logger=tmpLog, errorLogMsg='tar creation failed')
+
     os.chdir(_curdir)
     return archiveName, archiveFullName
 
