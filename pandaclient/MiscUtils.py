@@ -153,26 +153,32 @@ def commands_get_status_output(com):
 def commands_get_output(com):
     return commands_get_status_output(com)[1]
 
-def commands_fail_on_execution(com,verbose,errorCodeOnFailure):
+def commands_fail(com,verbose,errorStatusOnFailure,logger=None,logMessage=""):
+    
+    # check that the logger and log message have been provided 
+    if logger is not None and len(logMessage):
+        logger.debug(logMessage)
+    
     # execute command and get status code and message printed 
     status,data = commands_get_status_output(com)
     
-    # fail on error 
+    # fail for non zero exit status 
     if status != 0:
         # print error message before failing
         print(data)
-        if errorCodeOnFailure == "sameAsStatusCode":
+        if type(errorStatusOnFailure) == int:
+            # use error status provided to the function
+            sys.exit(errorStatusOnFailure)
+        elif errorStatusOnFailure == "sameAsStatus":
+            # use error status exit code returned 
+            # by the execution of the command
             sys.exit(status)
-
-        elif type(errorCodeOnFailure) == int:
-            # use error code provided to the function 
-            sys.exit(errorCodeOnFailure)
         else: 
-            # default exit code = 1 otherwise
+            # default exit status otherwise
             sys.exit(1)
     
     # print command output message if verbose
-    if verbose: 
+    if verbose:
         print(data)
     # otherwise the command got executed correctly 
     return status,data
