@@ -1110,7 +1110,7 @@ def archiveWithCpack(withSource,tmpDir,verbose):
 
     commands_failOnNonZeroExitStatus(
         comStr, EC_Archive, 
-        verboseCmd=False, verboseOutputCmd=verbose,
+        verboseCmd=False, verboseOutputCmd=False,
         logger=tmpLog, errorLogMsg='tarball creation failed')
 
     os.chdir(_curdir)
