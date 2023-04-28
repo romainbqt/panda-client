@@ -153,7 +153,7 @@ def commands_get_status_output(com):
 def commands_get_output(com):
     return commands_get_status_output(com)[1]
 
-def commands_failOnNonZeroExistStatus(
+def commands_failOnNonZeroExitStatus(
     com, errorStatusOnFailure,
     verboseCmd=False,verboseOutputCmd=False,
     logger=None,logMsg="",errorLogMsg=""):

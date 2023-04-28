@@ -3,7 +3,7 @@ import re
 import sys
 
 from . import MiscUtils
-from .MiscUtils import commands_get_output, commands_get_status_output_with_env, commands_get_output_with_env, commands_failOnNonZeroExistStatus
+from .MiscUtils import commands_get_output, commands_get_status_output_with_env, commands_get_output_with_env, commands_failOnNonZeroExitStatus
 from . import PLogger
 from . import Client
 
@@ -796,7 +796,7 @@ def archiveSourceFiles(workArea,runDir,currentDir,tmpDir,verbose,gluePackages=[]
                             if verbose:
                                 print(relPath)
                             
-                            commands_failOnNonZeroExistStatus(
+                            commands_failOnNonZeroExitStatus(
                                 comStr, EC_Archive, 
                                 verboseCmd=False, verboseOutputCmd=verbose,
                                 logger=tmpLog,errorLogMsg='tarball creation failed')
@@ -810,7 +810,7 @@ def archiveSourceFiles(workArea,runDir,currentDir,tmpDir,verbose,gluePackages=[]
                 if verbose:
                     print("%s/%s" % (pack,item))
 
-                commands_failOnNonZeroExistStatus(
+                commands_failOnNonZeroExitStatus(
                     comStr, EC_Archive, 
                     verboseCmd=False, verboseOutputCmd=verbose,
                     logger=tmpLog, errorLogMsg='tarball creation failed')
@@ -880,7 +880,7 @@ def archiveSourceFiles(workArea,runDir,currentDir,tmpDir,verbose,gluePackages=[]
             if verbose:
                 print(relPath)
             
-            commands_failOnNonZeroExistStatus(
+            commands_failOnNonZeroExitStatus(
                 comStr, EC_Archive,
                 verboseCmd=verbose, verboseOutputCmd=verbose,
                 logger=tmpLog, logMsg=file ,errorLogMsg='tarball creation failed')
@@ -934,7 +934,7 @@ def archiveJobOFiles(workArea,runDir,currentDir,tmpDir,verbose,archiveName=''):
         if verbose:
             print(relPath)
         
-        commands_failOnNonZeroExistStatus(
+        commands_failOnNonZeroExitStatus(
             comStr, EC_Archive, 
             verboseCmd=False, verboseOutputCmd=verbose,
             logger=tmpLog, errorLogMsg='tarball creation failed')
@@ -1046,7 +1046,7 @@ def archiveInstallArea(workArea,groupArea,archiveName,archiveFullName,
                     if verbose:
                         print(file)
                     
-                    commands_failOnNonZeroExistStatus(
+                    commands_failOnNonZeroExitStatus(
                         comStr, EC_Archive, 
                         verboseCmd=False, verboseOutputCmd=verbose,
                         logger=tmpLog,errorLogMsg='tarball creation failed')
@@ -1056,7 +1056,7 @@ def archiveInstallArea(workArea,groupArea,archiveName,archiveFullName,
         os.chdir(tmpDir)
         if os.path.exists(groupFileName):
             comStr = "tar -rh '%s' -f '%s'" % (groupFileName,archiveFullName)
-            commands_failOnNonZeroExistStatus(
+            commands_failOnNonZeroExitStatus(
                 comStr, EC_Archive, 
                 verboseCmd=verbose, verboseOutputCmd=True,
                 logger=tmpLog, errorLogMsg='tarball creation failed')
@@ -1090,7 +1090,7 @@ def archiveWithCpack(withSource,tmpDir,verbose):
         comStr += '-D CPACK_PACKAGE_VERSION_MINOR="" -D CPACK_PACKAGE_VERSION_PATCH="" '
         comStr += '-D CPACK_PACKAGE_DESCRIPTION="" '
         
-        commands_failOnNonZeroExistStatus(
+        commands_failOnNonZeroExitStatus(
           comStr, EC_Config, 
           verboseCmd=verbose, verboseOutputCmd=verbose,
           logger=tmpLog, errorLogMsg='cpack failed')
@@ -1111,7 +1111,7 @@ def archiveWithCpack(withSource,tmpDir,verbose):
     else:
         comStr = 'tar cf {0} -T /dev/null > /dev/null 2>&1'.format(archiveName)
 
-    commands_failOnNonZeroExistStatus(
+    commands_failOnNonZeroExitStatus(
         comStr, EC_Archive, 
         verboseCmd=verbose, verboseOutputCmd=verbose,
         logger=tmpLog, errorLogMsg='tarball creation failed')
