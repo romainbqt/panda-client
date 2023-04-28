@@ -1103,8 +1103,6 @@ def archiveWithCpack(withSource,tmpDir,verbose):
     archiveFullName += '.tar'
     os.chdir(tmpDir)
     if use_cpack:
-        # comStr = 'tar xfz {0}.gz && tar cf {0} usr > /dev/null 2>&1 && rm -rf usr _CPack_Packages {0}.gz'.format(
-        #     archiveName)
         # decompress the tar.gz archive created by cpack to .tar archive using gzip 
         comStr = 'gzip -d {0}.gz && rm -rf _CPack_Packages'.format(
             archiveName)
@@ -1113,7 +1111,7 @@ def archiveWithCpack(withSource,tmpDir,verbose):
 
     commands_failOnNonZeroExitStatus(
         comStr, EC_Archive, 
-        verboseCmd=verbose, verboseOutputCmd=verbose,
+        verboseCmd=False, verboseOutputCmd=verbose,
         logger=tmpLog, errorLogMsg='tarball creation failed')
 
     os.chdir(_curdir)
