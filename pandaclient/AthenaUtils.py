@@ -813,7 +813,7 @@ def archiveSourceFiles(workArea,runDir,currentDir,tmpDir,verbose,gluePackages=[]
                 commands_failOnNonZeroExistStatus(
                     comStr, EC_Archive, 
                     verboseCmd=verbose, verboseOutputCmd=True,
-                    logger=tmpLog, logMsg=file ,errorLogMsg='tarball creation failed')
+                    logger=tmpLog, errorLogMsg='tarball creation failed')
         # back to previous dir
         os.chdir(_curdir)
 
@@ -1049,7 +1049,7 @@ def archiveInstallArea(workArea,groupArea,archiveName,archiveFullName,
                     commands_failOnNonZeroExistStatus(
                         comStr, EC_Archive, 
                         verboseCmd=verbose, verboseOutputCmd=verbose,
-                        logger=tmpLog, logMsg=file ,errorLogMsg='tarball creation failed')
+                        logger=tmpLog,errorLogMsg='tarball creation failed')
                     
     # append groupArea to sources
     if groupArea != '' and (not nobuild):
@@ -1059,7 +1059,7 @@ def archiveInstallArea(workArea,groupArea,archiveName,archiveFullName,
             commands_failOnNonZeroExistStatus(
                 comStr, EC_Archive, 
                 verboseCmd=verbose, verboseOutputCmd=True,
-                logger=tmpLog, logMsg=file, errorLogMsg='tarball creation failed')
+                logger=tmpLog, errorLogMsg='tarball creation failed')
             
             commands_get_output('rm -rf %s' % groupFullName)
 
