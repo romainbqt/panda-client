@@ -162,7 +162,7 @@ def commands_failOnNonZeroExitStatus(
     if logger is not None and logMsg != "":
         logger.debug(logMsg)
     
-    # print command 
+    # print command if verbose
     if verboseCmd:
         print(com)
     
