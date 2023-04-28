@@ -1027,22 +1027,29 @@ def archiveInstallArea(workArea,groupArea,archiveName,archiveFullName,
                 if file not in allFiles:
                     # append
                     if file in files:
-                        out = commands_get_output("tar -rh '%s' -f '%s'" % (file,archiveFullName))
+                        comStr = "tar -rh '%s' -f '%s'" % (file,archiveFullName)
                     else:
                         # requirements files
-                        out = commands_get_output("tar -rh '%s' -f '%s'" % (file,groupFullName))
+                        comStr = "tar -rh '%s' -f '%s'" % (file,groupFullName)
                     allFiles.append(file)
                     if verbose:
                         print(file)
-                        if out != '':    
-                            print(out)
+                    
+                    commands_failOnNonZeroExistStatus(
+                        comStr, EC_Archive, 
+                        verboseCmd=verbose, verboseOutputCmd=verbose,
+                        logger=tmpLog, logMsg=file ,errorLogMsg='tarball creation failed')
+                    
     # append groupArea to sources
     if groupArea != '' and (not nobuild):
         os.chdir(tmpDir)
         if os.path.exists(groupFileName):
-            out = commands_get_output("tar -rh '%s' -f '%s'" % (groupFileName,archiveFullName))
-            if out != '':    
-                print(out)
+            comStr = "tar -rh '%s' -f '%s'" % (groupFileName,archiveFullName)
+            commands_failOnNonZeroExistStatus(
+                comStr, EC_Archive, 
+                verboseCmd=verbose, verboseOutputCmd=True,
+                logger=tmpLog, logMsg=file, errorLogMsg='tarball creation failed')
+            
             commands_get_output('rm -rf %s' % groupFullName)
 
 
@@ -1087,7 +1094,7 @@ def archiveWithCpack(withSource,tmpDir,verbose):
     if use_cpack:
         # comStr = 'tar xfz {0}.gz && tar cf {0} usr > /dev/null 2>&1 && rm -rf usr _CPack_Packages {0}.gz'.format(
         #     archiveName)
-        # decompress the tar.gz archive to .tar archive with gzip 
+        # decompress the tar.gz archive created by cpack to .tar archive using gzip 
         comStr = 'gzip -d {0}.gz && rm -rf _CPack_Packages'.format(
             archiveName)
     else:
