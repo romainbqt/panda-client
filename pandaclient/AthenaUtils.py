@@ -797,9 +797,9 @@ def archiveSourceFiles(workArea,runDir,currentDir,tmpDir,verbose,gluePackages=[]
                                 print(relPath)
                             
                             commands_failOnNonZeroExitStatus(
-                                comStr, EC_Archive, 
+                                comStr, EC_Archive,
                                 verboseCmd=False, verboseOutputCmd=verbose,
-                                logger=tmpLog,errorLogMsg='tarball creation failed')
+                                logger=tmpLog, errorLogMsg='tarball creation failed')
                     continue
                 # else
                 if dereferenceSymLinks:
@@ -811,7 +811,7 @@ def archiveSourceFiles(workArea,runDir,currentDir,tmpDir,verbose,gluePackages=[]
                     print("%s/%s" % (pack,item))
 
                 commands_failOnNonZeroExitStatus(
-                    comStr, EC_Archive, 
+                    comStr, EC_Archive,
                     verboseCmd=False, verboseOutputCmd=verbose,
                     logger=tmpLog, errorLogMsg='tarball creation failed')
         # back to previous dir
@@ -883,7 +883,7 @@ def archiveSourceFiles(workArea,runDir,currentDir,tmpDir,verbose,gluePackages=[]
             commands_failOnNonZeroExitStatus(
                 comStr, EC_Archive,
                 verboseCmd=verbose, verboseOutputCmd=verbose,
-                logger=tmpLog,errorLogMsg='tarball creation failed')
+                logger=tmpLog, errorLogMsg='tarball creation failed')
     # back to current dir
     os.chdir(currentDir)
     # return
@@ -935,7 +935,7 @@ def archiveJobOFiles(workArea,runDir,currentDir,tmpDir,verbose,archiveName=''):
             print(relPath)
         
         commands_failOnNonZeroExitStatus(
-            comStr, EC_Archive, 
+            comStr, EC_Archive,
             verboseCmd=False, verboseOutputCmd=verbose,
             logger=tmpLog, errorLogMsg='tarball creation failed')
         
@@ -1047,9 +1047,9 @@ def archiveInstallArea(workArea,groupArea,archiveName,archiveFullName,
                         print(file)
                     
                     commands_failOnNonZeroExitStatus(
-                        comStr, EC_Archive, 
+                        comStr, EC_Archive,
                         verboseCmd=False, verboseOutputCmd=verbose,
-                        logger=tmpLog,errorLogMsg='tarball creation failed')
+                        logger=tmpLog, errorLogMsg='tarball creation failed')
                     
     # append groupArea to sources
     if groupArea != '' and (not nobuild):
@@ -1057,7 +1057,7 @@ def archiveInstallArea(workArea,groupArea,archiveName,archiveFullName,
         if os.path.exists(groupFileName):
             comStr = "tar -rh '%s' -f '%s'" % (groupFileName,archiveFullName)
             commands_failOnNonZeroExitStatus(
-                comStr, EC_Archive, 
+                comStr, EC_Archive,
                 verboseCmd=False, verboseOutputCmd=True,
                 logger=tmpLog, errorLogMsg='tarball creation failed')
             
@@ -1091,7 +1091,7 @@ def archiveWithCpack(withSource,tmpDir,verbose):
         comStr += '-D CPACK_PACKAGE_DESCRIPTION="" '
         
         commands_failOnNonZeroExitStatus(
-          comStr, EC_Config, 
+          comStr, EC_Config,
           verboseCmd=False, verboseOutputCmd=verbose,
           logger=tmpLog, logMsg=comStr, errorLogMsg='cpack failed')
             
@@ -1109,7 +1109,7 @@ def archiveWithCpack(withSource,tmpDir,verbose):
         comStr = 'tar cf {0} -T /dev/null > /dev/null 2>&1'.format(archiveName)
 
     commands_failOnNonZeroExitStatus(
-        comStr, EC_Archive, 
+        comStr, EC_Archive,
         verboseCmd=False, verboseOutputCmd=False,
         logger=tmpLog, errorLogMsg='tarball creation failed')
 
