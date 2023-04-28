@@ -1104,8 +1104,7 @@ def archiveWithCpack(withSource,tmpDir,verbose):
     os.chdir(tmpDir)
     if use_cpack:
         # decompress the tar.gz archive created by cpack to .tar archive using gzip 
-        comStr = 'gzip -d {0}.gz && rm -rf _CPack_Packages'.format(
-            archiveName)
+        comStr = 'gzip -d {0}.gz && rm -rf _CPack_Packages'.format(archiveName)
     else:
         comStr = 'tar cf {0} -T /dev/null > /dev/null 2>&1'.format(archiveName)
 
