@@ -799,7 +799,7 @@ def archiveSourceFiles(workArea,runDir,currentDir,tmpDir,verbose,gluePackages=[]
                             commands_failOnNonZeroExistStatus(
                                 comStr, EC_Archive, 
                                 verboseCmd=verbose, verboseOutputCmd=verbose,
-                                logger=tmpLog, logMsg=file ,errorLogMsg='tarball creation failed')
+                                logger=tmpLog,errorLogMsg='tarball creation failed')
                     continue
                 # else
                 if dereferenceSymLinks:
