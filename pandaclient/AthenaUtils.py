@@ -1048,7 +1048,7 @@ def archiveInstallArea(workArea,groupArea,archiveName,archiveFullName,
                     
                     commands_failOnNonZeroExistStatus(
                         comStr, EC_Archive, 
-                        verboseCmd=verbose, verboseOutputCmd=verbose,
+                        verboseCmd=False, verboseOutputCmd=verbose,
                         logger=tmpLog,errorLogMsg='tarball creation failed')
                     
     # append groupArea to sources
