@@ -874,14 +874,17 @@ def archiveSourceFiles(workArea,runDir,currentDir,tmpDir,verbose,gluePackages=[]
         # archive
         if not alreadyFlag:
             if os.path.islink(file):
-                out = commands_get_output("tar -rh '%s' -f '%s'" % (relPath, archiveFullName))
+                comStr = "tar -rh '%s' -f '%s'" % (relPath, archiveFullName)
             else:
-                out = commands_get_output("tar rf '%s' '%s'" % (archiveFullName, relPath))
+                comStr = "tar rf '%s' '%s'" % (archiveFullName, relPath)
             if verbose:
                 print(relPath)
-                if out != '':    
-                    print(out)
-    # back to current dir            
+            
+            commands_failOnNonZeroExistStatus(
+                comStr, EC_Archive,
+                verboseCmd=verbose, verboseOutputCmd=verbose,
+                logger=tmpLog, logMsg=file ,errorLogMsg='tarball creation failed')
+    # back to current dir
     os.chdir(currentDir)
     # return
     return archiveName,archiveFullName
