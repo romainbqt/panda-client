@@ -930,11 +930,15 @@ def archiveJobOFiles(workArea,runDir,currentDir,tmpDir,verbose,archiveName=''):
         sString=re.sub('[\+]','.',workArea)
         relPath = re.sub(sString+'/','',file)
         # append
-        out = commands_get_output("tar -rh '%s' -f '%s'" % (relPath,archiveFullName))
+        comStr = "tar -rh '%s' -f '%s'" % (relPath,archiveFullName)
         if verbose:
             print(relPath)
-            if out != '':    
-                print(out)
+        
+        commands_failOnNonZeroExistStatus(
+            comStr, EC_Archive, 
+            verboseCmd=verbose, verboseOutputCmd=verbose,
+            logger=tmpLog, errorLogMsg='tarball creation failed')
+        
     # return
     return archiveName,archiveFullName
 
