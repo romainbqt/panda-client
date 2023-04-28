@@ -936,7 +936,7 @@ def archiveJobOFiles(workArea,runDir,currentDir,tmpDir,verbose,archiveName=''):
         
         commands_failOnNonZeroExistStatus(
             comStr, EC_Archive, 
-            verboseCmd=verbose, verboseOutputCmd=verbose,
+            verboseCmd=False, verboseOutputCmd=verbose,
             logger=tmpLog, errorLogMsg='tarball creation failed')
         
     # return
