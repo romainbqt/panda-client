@@ -790,26 +790,30 @@ def archiveSourceFiles(workArea,runDir,currentDir,tmpDir,verbose,gluePackages=[]
                                 sString=re.sub('[\+]','.',workArea)
                                 relPath = re.sub(sString+'/','',iFile)
                             if os.path.islink(iFile):
-                                cmd = "tar -rh '%s' -f '%s' --exclude '%s'" % (relPath,_archiveFullName,excludePattern)
-                                out = commands_get_output(cmd)
+                                comStr = "tar -rh '%s' -f '%s' --exclude '%s'" % (relPath,_archiveFullName,excludePattern)
                             else:
-                                cmd = "tar rf '%s' '%s' --exclude '%s'" % (_archiveFullName,relPath,excludePattern)
-                                out = commands_get_output(cmd)
+                                comStr = "tar rf '%s' '%s' --exclude '%s'" % (_archiveFullName,relPath,excludePattern)
                             if verbose:
                                 print(relPath)
-                                if out != '':    
-                                    print(out)
+                            
+                            commands_failOnNonZeroExistStatus(
+                                comStr, EC_Archive, 
+                                verboseCmd=verbose, verboseOutputCmd=verbose,
+                                logger=tmpLog, logMsg=file ,errorLogMsg='tarball creation failed')
                     continue
                 # else
                 if dereferenceSymLinks:
-                    cmd = "tar rfh '%s' '%s/%s' --exclude '%s'" % (_archiveFullName,pack,item,excludePattern)
+                    comStr = "tar rfh '%s' '%s/%s' --exclude '%s'" % (_archiveFullName,pack,item,excludePattern)
                 else:
-                    cmd = "tar rf '%s' '%s/%s' --exclude '%s'" % (_archiveFullName,pack,item,excludePattern)
-                out = commands_get_output(cmd)
+                    comStr = "tar rf '%s' '%s/%s' --exclude '%s'" % (_archiveFullName,pack,item,excludePattern)
+                
                 if verbose:
                     print("%s/%s" % (pack,item))
-                    if out != '':    
-                        print(out)
+
+                commands_failOnNonZeroExistStatus(
+                    comStr, EC_Archive, 
+                    verboseCmd=verbose, verboseOutputCmd=True,
+                    logger=tmpLog, logMsg=file ,errorLogMsg='tarball creation failed')
         # back to previous dir
         os.chdir(_curdir)
 
