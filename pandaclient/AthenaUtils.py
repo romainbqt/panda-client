@@ -1058,7 +1058,7 @@ def archiveInstallArea(workArea,groupArea,archiveName,archiveFullName,
             comStr = "tar -rh '%s' -f '%s'" % (groupFileName,archiveFullName)
             commands_failOnNonZeroExitStatus(
                 comStr, EC_Archive, 
-                verboseCmd=verbose, verboseOutputCmd=True,
+                verboseCmd=False, verboseOutputCmd=True,
                 logger=tmpLog, errorLogMsg='tarball creation failed')
             
             commands_get_output('rm -rf %s' % groupFullName)
