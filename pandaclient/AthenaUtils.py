@@ -798,7 +798,7 @@ def archiveSourceFiles(workArea,runDir,currentDir,tmpDir,verbose,gluePackages=[]
                             
                             commands_failOnNonZeroExistStatus(
                                 comStr, EC_Archive, 
-                                verboseCmd=verbose, verboseOutputCmd=verbose,
+                                verboseCmd=False, verboseOutputCmd=verbose,
                                 logger=tmpLog,errorLogMsg='tarball creation failed')
                     continue
                 # else
@@ -812,7 +812,7 @@ def archiveSourceFiles(workArea,runDir,currentDir,tmpDir,verbose,gluePackages=[]
 
                 commands_failOnNonZeroExistStatus(
                     comStr, EC_Archive, 
-                    verboseCmd=verbose, verboseOutputCmd=True,
+                    verboseCmd=False, verboseOutputCmd=verbose,
                     logger=tmpLog, errorLogMsg='tarball creation failed')
         # back to previous dir
         os.chdir(_curdir)
