@@ -9,7 +9,7 @@ from . import Client
 
 # error code
 EC_Config    = 10
-
+EC_Archive   = 60
 
 # get CMT projects
 def getCmtProjects(dir='.'):
