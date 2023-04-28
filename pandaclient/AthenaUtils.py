@@ -1092,8 +1092,8 @@ def archiveWithCpack(withSource,tmpDir,verbose):
         
         commands_failOnNonZeroExitStatus(
           comStr, EC_Config, 
-          verboseCmd=verbose, verboseOutputCmd=verbose,
-          logger=tmpLog, errorLogMsg='cpack failed')
+          verboseCmd=False, verboseOutputCmd=verbose,
+          logger=tmpLog, logMsg=comStr, errorLogMsg='cpack failed')
             
     else:
         use_cpack = False
